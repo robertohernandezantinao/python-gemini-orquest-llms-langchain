@@ -12,6 +12,27 @@ llm = ChatGoogleGenerativeAI(
     model=GEMINI_FLASH
 )
 
+
+imagen = encode_image('datos/ejemplo_grafico.jpg')
+
+pregunta = "Describe la imagen:"
+
+mensaje = HumanMessage(
+    content = [
+        {
+            "type": "text",
+            "text": pregunta
+        },
+        {
+            "type": "image_url",
+            "image_url": f"data:image/jpeg;base64,{imagen}"
+        }
+    ]
+)
+
+respuesta = llm.invoke([mensaje])
+print(respuesta)
+
 respuesta = llm.invoke("Cuáles canales colombianos de youtube me recomiendas para saber más sobre teléfonos inteligentes?")
 print(f"Gemini: ",respuesta.content)
 
@@ -30,23 +51,3 @@ response = co.chat(
 
 print(response.message.content[0].text)
 
-# python
-# imagen = encode_image('datos/ejemplo_grafico.jpg')
-
-# pregunta = "Describe la imagen:"
-
-# mensaje = HumanMessage(
-#     content = [
-#         {
-#             "type": "text",
-#             "text": pregunta
-#         },
-#         {
-#             "type": "image_url",
-#             "image_url": f"data:image/jpeg;base64,{imagen}"
-#         }
-#     ]
-# )
-
-# respuesta = llm.invoke([mensaje])
-# print(respuesta)
